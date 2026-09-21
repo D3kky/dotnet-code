@@ -7,5 +7,5 @@ public static class Constants
 
   public const string ArgNamePrefix = "--";
 
-  public static string Path = nameof(Path).ToLower();
+  public const string Path = "path";
 }
