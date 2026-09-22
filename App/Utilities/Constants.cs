@@ -1,4 +1,4 @@
-namespace dotnet_code.Utilities;
+namespace App.Utilities;
 
 public static class Constants
 {

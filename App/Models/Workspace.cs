@@ -1,4 +1,4 @@
-namespace dotnet_code.Models;
+namespace App.Models;
 
 public sealed record Workspace(Folder[] Folders);
 

@@ -1,6 +1,6 @@
-namespace dotnet_code.Utilities;
+namespace App.Utilities;
 
-using static dotnet_code.Utilities.Constants;
+using static App.Utilities.Constants;
 
 public static class ArgumentHelpers
 {

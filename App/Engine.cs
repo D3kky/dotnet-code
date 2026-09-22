@@ -1,5 +1,5 @@
-namespace dotnet_code;
-using dotnet_code.Utilities;
+namespace App;
+using App.Utilities;
 
 public sealed class Engine
 {

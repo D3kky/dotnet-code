@@ -1,7 +1,7 @@
 using System.Text.RegularExpressions;
-using dotnet_code.Models;
+using App.Models;
 
-namespace dotnet_code.Utilities;
+namespace App.Utilities;
 
 public static class Parsers
 {
