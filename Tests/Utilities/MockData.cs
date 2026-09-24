@@ -49,5 +49,5 @@ public static class MockData
       <Project Path=""tests/MyTests/MyTests.csproj"" />
       </Solution>";
 
-    public static string[] ExpectedPaths = ["src/MyApp/MyApp.csproj", "src/MyLibrary/MyLibrary.csproj", "src/MyService/MyService.csproj", "tests/MyTests/MyTests.csproj"];
+    public static string[] ExpectedPaths = ["src/MyApp", "src/MyLibrary", "src/MyService", "tests/MyTests"];
 }
