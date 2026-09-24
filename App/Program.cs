@@ -1,3 +1,5 @@
-﻿using App.Utilities;
+﻿using App;
 
-var a = Parsers.GenerateWorkspaceContent("/home/dekky/repos/dotnet-code/dotnet-code.slnx");
+var engine = new Engine();
+
+engine.Run();

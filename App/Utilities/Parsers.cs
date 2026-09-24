@@ -25,12 +25,20 @@ public static class Parsers
     };
 
     var slnFullPath = Path.GetFullPath(path);
-    return new([.. folderPaths.Select(folderPath => new Folder(Path.Join(slnFullPath, folderPath)))]);
+    var slnDir = Path.GetDirectoryName(slnFullPath);
+
+    return new([.. folderPaths.Select(path => new Folder(Path.GetFullPath(path)))], BuildOmnisharpSettings(slnFullPath));
   }
 
+  public static Dictionary<string, string> BuildOmnisharpSettings(string solutionPath)
+    => new()
+    {
+      ["dotnet.defaultSolution"] = solutionPath
+    };
+
   public static string[] ParseSlnProjectPaths(string content)
-    => [.. ProjectRegex.Matches(content).Select(match => match.Groups[Constants.Path].Value)];
+    => [.. ProjectRegex.Matches(content).Select(match => Path.GetDirectoryName(match.Groups[Constants.Path].Value) ?? throw new ArgumentException("Sln malformed"))];
 
   public static string[] ParseSlnxProjectPaths(string content)
-    => [.. ProjectSlnxRegex.Matches(content).Select(match => match.Groups[Constants.Path].Value)];
+    => [.. ProjectSlnxRegex.Matches(content).Select(match => Path.GetDirectoryName(match.Groups[Constants.Path].Value) ?? throw new ArgumentNullException("Slnx malformed"))];
 }

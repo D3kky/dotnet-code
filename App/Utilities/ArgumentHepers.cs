@@ -11,6 +11,9 @@ public static class ArgumentHelpers
     var args = Environment.GetCommandLineArgs();
     var toReturn = new Dictionary<string, string?>();
 
+    // Default
+    if (args.Length == 2) return new() { [Path] = args[1] };
+
     for (int i = 1; i < args.Length; i++)
     {
       if (!args[i].StartsWith(ArgNamePrefix)) throw new ArgumentException("Argument name or format invalid, please insert arguments in format [--name value]");
@@ -19,10 +22,10 @@ public static class ArgumentHelpers
 
       if (argHasValue)
       {
-        toReturn[args[i]] = args[++i];
+        toReturn[args[i][2..]] = args[++i];
       }
 
-      toReturn[args[i]] = null;
+      toReturn[args[i][2..]] = null;
     }
     
     return toReturn;

@@ -1,14 +1,41 @@
 namespace App;
+
+using System.Diagnostics;
+using System.Text.Json;
+using App.Models;
 using App.Utilities;
 
 public sealed class Engine
 {
   public void Run()
   {
-    var fullPath = Path.GetFullPath(ArgumentHelpers.Args[Constants.Path] ?? throw new ArgumentException("Solution path not provided"));
+    var path = ArgumentHelpers.Args[Constants.Path] ?? throw new ArgumentNullException($"Solution path must be provided");
 
-    if (!Path.Exists(fullPath)) throw new ArgumentException($"File doesn't exist: {fullPath}");
+    if (!Path.Exists(path)) throw new ArgumentException($"File doesn't exist: {path}");
 
+    var name = Path.GetFileNameWithoutExtension(path);
+    var workspace = Parsers.GenerateWorkspaceContent(path);
+
+    if (!Directory.Exists(WorkspaceDirectoryPath)) Directory.CreateDirectory(WorkspaceDirectoryPath);
     
+    var fullWorkspaceName = BuildWorkspaceSavePath(name);
+    File.WriteAllText(fullWorkspaceName, JsonSerializer.Serialize(workspace, SourceGeneratorContext.Default.Workspace));
+
+    OpenVsCodeWorkspace(fullWorkspaceName);
   }
+
+  private static readonly string WorkspaceDirectoryPath = Path.Join(AppContext.BaseDirectory, Constants.Workspaces);
+  private static string BuildWorkspaceSavePath(string slnName)
+    => Path.Join(WorkspaceDirectoryPath, $"{slnName}{Constants.WorkspaceExtension}");
+
+  private static void OpenVsCodeWorkspace(string workspacePath)
+  {
+    var startInfo = new ProcessStartInfo
+    {
+      FileName = Constants.VsCodeCommandName,
+      Arguments = workspacePath
+    };
+
+    _ = Process.Start(startInfo);
+  } 
 }
