@@ -1,0 +1,10 @@
+name: demo-action
+run-name: ${{ github.actor }} is testing actions
+on: [push]
+jobs:
+  Explore-Github-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "test adin"
+      - run: echo "test ados"
+      - run: echo "branch name is ${{ github.ref }} and repo is ${{ github.repository }}"
