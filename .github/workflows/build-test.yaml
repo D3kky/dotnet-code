@@ -1,5 +1,5 @@
-name: app
-on: [push]
+name: Build test app
+on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,7 +16,4 @@ jobs:
         run: dotnet build ./App/App.csproj
 
       - name: Tests
-        run: dotnet test ./Tests/Tests.csproj
-
-      - name: Publish
-        run: dotnet publish ./App/App.csproj
+        run: dotnet test ./Tests/Tests.csproj --no-build
