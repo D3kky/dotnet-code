@@ -34,7 +34,8 @@ public sealed class Engine
     var startInfo = new ProcessStartInfo
     {
       FileName = Constants.VsCodeCommandName,
-      Arguments = workspacePath
+      Arguments = workspacePath,
+      UseShellExecute = true
     };
 
     _ = Process.Start(startInfo);
