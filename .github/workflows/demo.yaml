@@ -1,0 +1,22 @@
+name: app
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4 
+        with:
+          dotnet-version: '10.x.x'
+        
+      - name: Build
+        run: dotnet build ./App/App.csproj
+
+      - name: Tests
+        run: dotnet test ./Tests/Tests.csproj
+
+      - name: Publish
+        run: dotnet publish ./App/App.csproj
