@@ -34,7 +34,7 @@ public static class Parsers
     => new()
     {
       ["dotnet.defaultSolution"] = solutionPath,
-      ["teminal.integrated.cwd"] = shellOpenPath
+      ["terminal.integrated.cwd"] = shellOpenPath
     };
 
   public static string[] ParseSlnProjectPaths(string content)
