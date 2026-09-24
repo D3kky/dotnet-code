@@ -25,15 +25,16 @@ public static class Parsers
     };
 
     var slnFullPath = Path.GetFullPath(path);
-    var slnDir = Path.GetDirectoryName(slnFullPath);
+    var slnDir = Path.GetDirectoryName(slnFullPath) ?? throw new ArgumentException($"Solution path does not have a valid directory");
 
-    return new([.. folderPaths.Select(path => new Folder(Path.Join(slnDir, path)))], BuildOmnisharpSettings(slnFullPath));
+    return new([.. folderPaths.Select(path => new Folder(Path.Join(slnDir, path)))], BuildSettings(slnFullPath, slnDir));
   }
 
-  public static Dictionary<string, string> BuildOmnisharpSettings(string solutionPath)
+  public static Dictionary<string, string> BuildSettings(string solutionPath, string shellOpenPath)
     => new()
     {
-      ["dotnet.defaultSolution"] = solutionPath
+      ["dotnet.defaultSolution"] = solutionPath,
+      ["teminal.integrated.cwd"] = shellOpenPath
     };
 
   public static string[] ParseSlnProjectPaths(string content)
