@@ -27,7 +27,7 @@ public static class Parsers
     var slnFullPath = Path.GetFullPath(path);
     var slnDir = Path.GetDirectoryName(slnFullPath);
 
-    return new([.. folderPaths.Select(path => new Folder(Path.GetFullPath(path)))], BuildOmnisharpSettings(slnFullPath));
+    return new([.. folderPaths.Select(path => new Folder(Path.Join(slnDir, path)))], BuildOmnisharpSettings(slnFullPath));
   }
 
   public static Dictionary<string, string> BuildOmnisharpSettings(string solutionPath)
